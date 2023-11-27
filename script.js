@@ -46,6 +46,22 @@ let mm = function () {
  });
 };
 
+let clean = function() {
+    valve1(true); valve2(true);
+    pump2(1); pump1(-bloodPumpSpeed());
+    progress("Детергент", "Детергент", T1);
+    wait(T2);
+    air();
+    valve1(false); valve2(true);
+    pump2(1); pump1(-bloodPumpSpeed());
+    progress("Вода", "Вода", T3);
+    pump1(0); pump2(0);
+    wait(T4);
+    air();
+    liftOpen();
+    query("\x0C\xDB Удалите\n  стекло", "Пожалуйста, удалите стекло");
+}
+
 let exp = function (d, s) {
     pump1(0); pump2(0);
     progress("\x0CПодготовка", "Подготовка", 8);
@@ -69,28 +85,19 @@ let exp = function (d, s) {
     });
     experiment(d, s);
     pump1(0); pump2(0);
-    
+
+    query("\x0C\xDB Удалите\n  образец", "Пожалуйста, удалите образец");
+
+    air();
+
     if (!query("\x0CЗаменить\nстекло?", "Хотите заменить стекло?")) {
-        air();
         liftOpen();
         query("\x0C\xDC Замените\n  стекло", "Пожалуйста, замените стекло");
         liftClose();
     }
-    
-    query("\x0C\xDB Удалите\n  образец", "Пожалуйста, удалите образец");
-    valve1(true); valve2(true);
-    pump2(1); pump1(-bloodPumpSpeed());
-    progress("Детергент", "Детергент", T1);
-    wait(T2);
-    air();
-    valve1(false); valve2(true);
-    pump2(1); pump1(-bloodPumpSpeed());
-    progress("Вода", "Вода", T3);
-    pump1(0); pump2(0);
-    wait(T4);
-    air();
-    liftOpen();
-    query("\x0C\xDB Удалите\n  стекло", "Пожалуйста, удалите стекло");
+
+    clean();
+
     oledCls();
     oledPrint("Ready");
     reboot();
