@@ -56,20 +56,20 @@ let clean=function() {
   wait(T4);
   air();
   liftOpen();
-  query("\f\xDB Удалите\n  стекло", "Пожалуйста, удалите стекло");
-}
+  query("\x0C\xDB Удалите\n  стекло", "Пожалуйста, удалите стекло");
+};
 
 let exp=function (d, s) {
   pump1(0); pump2(0);
-  progress("\fПодготовка", "Подготовка", 8);
+  progress("\x0CПодготовка", "Подготовка", 8);
   liftOpen();
-  query("\f\xDC Поставьте\n  стекло", "Пожалуйста, поставьте стекло");
+  query("\x0C\xDC Поставьте\n  стекло", "Пожалуйста, поставьте стекло");
   liftClose();
-  query("\f\xDC Поставьте\n  образец", "Пожалуйста, поставьте образец");
+  query("\x0C\xDC Поставьте\n  образец", "Пожалуйста, поставьте образец");
 
   pump1(0); pump2(0);
   pump1(bloodPumpSpeed());
-  progress("\fЗаполнение", "Заполнение", T0);
+  progress("\x0CЗаполнение", "Заполнение", T0);
   pump1(bloodPumpSpeed());
   swMenu({sw:{"0":{
     short:{t:"/query/click", d:{action:"complete"}}, 
@@ -83,15 +83,15 @@ let exp=function (d, s) {
 
   air();
 
-  if (!query("\fЗаменить\nстекло?", "Хотите заменить стекло?")) {
+  if (!query("\x0CЗаменить\nстекло?", "Хотите заменить стекло?")) {
     liftOpen();
-    query("\f\xDC Замените\n  стекло", "Пожалуйста, замените стекло");
+    query("\x0C\xDC Замените\n  стекло", "Пожалуйста, замените стекло");
     liftClose();
   }
 
   clean();
 
-  oledPrint("\fReady");
+  oledPrint("\x0CReady");
   reboot();
 };
 mm();
